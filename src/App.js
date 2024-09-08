@@ -22,17 +22,16 @@ const App = () => {
   }
 
   const handleSumNumbers = () => {
-
     if(firstNumber === '0'){
         setFirstNumber(String(currentNumber));
         setCurrentNumber('0')
         setOperation('+')
-    }else {
-      const sum = Number(firstNumber) + Number(currentNumber);
-      setCurrentNumber(String(sum))
-      setOperation('')
+        return;
     }
 
+    const sum = Number(firstNumber) + Number(currentNumber);
+    setCurrentNumber(String(sum))
+    setOperation('')
   }
 
   const handleMinusNumbers = () => {
@@ -41,16 +40,46 @@ const App = () => {
         setFirstNumber(String(currentNumber));
         setCurrentNumber('0')
         setOperation('-')
-    }else {
-      const sum = Number(firstNumber) - Number(currentNumber);
-      setCurrentNumber(String(sum))
-      setOperation('')
+        return;
     }
 
+    const sum = Number(firstNumber) - Number(currentNumber);
+    setCurrentNumber(String(sum))
+    setOperation('')
+  }
+
+  const handleDivideNumbers = () => {
+    if(firstNumber === '0'){
+        setFirstNumber(String(currentNumber));
+        setCurrentNumber('0')
+        setOperation('/')
+        return;
+    }
+
+    const divide = Number(firstNumber) / Number(currentNumber);
+    setCurrentNumber(String(divide))
+    setOperation('')
+  }
+
+  const handleMultNumbers = () => {
+    if(firstNumber === '0'){
+        setFirstNumber(String(currentNumber));
+        setCurrentNumber('0')
+        setOperation('x')
+        return;
+    } 
+
+    const mult = Number(firstNumber) * Number(currentNumber);
+    setCurrentNumber(String(mult))
+    setOperation('')
+  }
+
+  const handlePercentNumbers = () => {
+    const perc = Number(currentNumber) / 100;
+    setCurrentNumber(String(perc))
   }
 
   const handleEquals = () => {
-
     if(firstNumber !== '0' && operation !== '' && currentNumber !== '0'){
         switch(operation){
           case '+':
@@ -59,11 +88,16 @@ const App = () => {
           case '-':
             handleMinusNumbers();
             break;
+          case '/':
+            handleDivideNumbers();
+            break;
+          case 'x':
+            handleMultNumbers();
+            break;
           default: 
             break;
         }
     }
-
   }
 
   return (
@@ -71,10 +105,10 @@ const App = () => {
       <Content>
         <Input value={currentNumber}/>
         <Row>
-          <Button label="x"/>
-          <Button label="/"/>
+          <Button label="%" onClick={handlePercentNumbers}/>
+          <Button label="/" onClick={handleDivideNumbers}/>
           <Button label="c" onClick={handleOnClear}/>
-          <Button label="."/>
+          <Button label="x" onClick={handleMultNumbers}/>
         </Row>
         <Row>
           <Button label="7" onClick={() => handleAddNumber('7')}/>
